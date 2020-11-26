@@ -2,12 +2,6 @@
 //Print all subarrays of a given array
 public class PrintSubarrayMain {
 
-    public static void main(String args[]){
-        PrintSubarrayMain psm=new PrintSubarrayMain();
-        int arr[]= {1,2,3,4};
-        psm.printSubArray(arr);
-    }
-
     void printSubArray(int arr[])
     {
 
@@ -24,5 +18,11 @@ public class PrintSubarrayMain {
                 System.out.println();
             }
         }
+    }
+
+    public static void main(String args[]){
+        PrintSubarrayMain psm=new PrintSubarrayMain();
+        int arr[]= {1,2,3,4};
+        psm.printSubArray(arr);
     }
 }
