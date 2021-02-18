@@ -51,19 +51,9 @@ public class EvenOddThreads {
 
             EvenOddThreads mt = new EvenOddThreads();
 
-            Thread t1 = new Thread(new Runnable() {
-                public void run()
-                {
-                    mt.printEvenNumber();
-                }
-            });
+            Thread t1 = new Thread(mt::printEvenNumber);
 
-            Thread t2 = new Thread(new Runnable() {
-                public void run()
-                {
-                    mt.printOddNumber();
-                }
-            });
+            Thread t2 = new Thread(mt::printOddNumber);
             t1.start();
             t2.start();
         }

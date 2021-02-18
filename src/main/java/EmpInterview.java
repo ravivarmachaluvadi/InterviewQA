@@ -1,11 +1,12 @@
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-public class Interview {
+public class EmpInterview {
     public static void main(String[] args) {
 
 
-        List<Emp> empList = new ArrayList<Emp>();
+        List<Emp> empList = new ArrayList<>();
         empList.add(new Emp(133, "C", 29, "M", "Infra", 2012, 18000.0));
         empList.add(new Emp(122, "B", 25, "M", "Sales", 2015, 13500.0));
         empList.add(new Emp(111, "A", 32, "F", "HR", 2011, 25000.0));
@@ -38,66 +39,70 @@ public class Interview {
 
         //highest paid employee in the organization
         Optional<Emp> highestPaidEmployeeWrapper=
-                empList.stream().collect(Collectors.maxBy(Comparator.comparingDouble(Emp::getSalary)));
+                empList.stream().max(Comparator.comparingDouble(Emp::getSalary));
 
-        Emp highestPaidEmployee = highestPaidEmployeeWrapper.get();
+        AtomicReference<Emp> highestPaidEmployee = new AtomicReference<>();
+        highestPaidEmployeeWrapper.ifPresent(highestPaidEmployee::set);
 
         System.out.println("Details Of Highest Paid Employee : ");
         System.out.println("==================================");
-        System.out.println("ID : "+highestPaidEmployee.getId());
-        System.out.println("Name : "+highestPaidEmployee.getName());
-        System.out.println("Age : "+highestPaidEmployee.getAge());
-        System.out.println("Gender : "+highestPaidEmployee.getGender());
-        System.out.println("Department : "+highestPaidEmployee.getDepartment());
-        System.out.println("Year Of Joining : "+highestPaidEmployee.getYearOfJoining());
-        System.out.println("Salary : "+highestPaidEmployee.getSalary());
+        System.out.println("ID : "+ highestPaidEmployee.get().getId());
+        System.out.println("Name : "+ highestPaidEmployee.get().getName());
+        System.out.println("Age : "+ highestPaidEmployee.get().getAge());
+        System.out.println("Gender : "+ highestPaidEmployee.get().getGender());
+        System.out.println("Department : "+ highestPaidEmployee.get().getDepartment());
+        System.out.println("Year Of Joining : "+ highestPaidEmployee.get().getYearOfJoining());
+        System.out.println("Salary : "+ highestPaidEmployee.get().getSalary());
 
 
         //names of all employees who have joined after 2015
-       List<String> list= empList.stream()
+        final List<String> collect = empList.stream()
                 .filter(e -> e.getYearOfJoining() > 2015)
                 .map(Emp::getName)
                 .collect(Collectors.toList());
-                //.forEach(System.out::println);
+        //.forEach(System.out::println);
 
         //youngest male employee in the product development department
         Optional<Emp> youngestMaleEmployeeInProductDevelopmentWrapper=
                 empList.stream()
-                        .filter(e -> e.getGender()=="M" && e.getDepartment()=="Development")
+                        .filter(e -> e.getGender().equals("M") && e.getDepartment().equals("Development"))
             .min(Comparator.comparingInt(Emp::getAge));
 
 
-        Emp youngestMaleEmployeeInProductDevelopment = youngestMaleEmployeeInProductDevelopmentWrapper.get();
+        AtomicReference<Emp> youngestMaleEmployeeInProductDevelopment = new AtomicReference<>();
+
+                youngestMaleEmployeeInProductDevelopmentWrapper.ifPresent(youngestMaleEmployeeInProductDevelopment::set);
 
         System.out.println("Details Of Youngest Male Employee In Product Development");
         System.out.println("----------------------------------------------");
-        System.out.println("ID : "+youngestMaleEmployeeInProductDevelopment.getId());
-        System.out.println("Name : "+youngestMaleEmployeeInProductDevelopment.getName());
-        System.out.println("Age : "+youngestMaleEmployeeInProductDevelopment.getAge());
-        System.out.println("Year Of Joinging : "+youngestMaleEmployeeInProductDevelopment.getYearOfJoining());
-        System.out.println("Salary : "+youngestMaleEmployeeInProductDevelopment.getSalary());
+        System.out.println("ID : "+ youngestMaleEmployeeInProductDevelopment.get().getId());
+        System.out.println("Name : "+ youngestMaleEmployeeInProductDevelopment.get().getName());
+        System.out.println("Age : "+ youngestMaleEmployeeInProductDevelopment.get().getAge());
+        System.out.println("Year Of Joinging : "+ youngestMaleEmployeeInProductDevelopment.get().getYearOfJoining());
+        System.out.println("Salary : "+ youngestMaleEmployeeInProductDevelopment.get().getSalary());
 
         //Who has the most working experience in the organization
         Optional<Emp> seniorMostEmployeeWrapper=
-                empList.stream().sorted(Comparator.comparingInt(Emp::getYearOfJoining)).findFirst();
+                empList.stream().min(Comparator.comparingInt(Emp::getYearOfJoining));
 
 
-        Emp seniorMostEmployee = seniorMostEmployeeWrapper.get();
+        AtomicReference<Emp> seniorMostEmployee = new AtomicReference<>();
+                seniorMostEmployeeWrapper.ifPresent(seniorMostEmployee::set);
 
         System.out.println("Senior Most Employee Details :");
         System.out.println("----------------------------");
-        System.out.println("ID : "+seniorMostEmployee.getId());
-        System.out.println("Name : "+seniorMostEmployee.getName());
-        System.out.println("Age : "+seniorMostEmployee.getAge());
-        System.out.println("Gender : "+seniorMostEmployee.getGender());
-        System.out.println("Age : "+seniorMostEmployee.getDepartment());
-        System.out.println("Year Of Joinging : "+seniorMostEmployee.getYearOfJoining());
-        System.out.println("Salary : "+seniorMostEmployee.getSalary());
+        System.out.println("ID : "+ seniorMostEmployee.get().getId());
+        System.out.println("Name : "+ seniorMostEmployee.get().getName());
+        System.out.println("Age : "+ seniorMostEmployee.get().getAge());
+        System.out.println("Gender : "+ seniorMostEmployee.get().getGender());
+        System.out.println("Age : "+ seniorMostEmployee.get().getDepartment());
+        System.out.println("Year Of Joinging : "+ seniorMostEmployee.get().getYearOfJoining());
+        System.out.println("Salary : "+ seniorMostEmployee.get().getSalary());
 
         //How many male and female employees are there in the sales and marketing team
         Map<String, Long> countMaleFemaleEmployeesInSalesMarketing=
                 empList.stream()
-                        .filter(e -> e.getDepartment()=="Sales And Marketing")
+                        .filter(e -> e.getDepartment().equals("Sales And Marketing"))
                         .collect(Collectors.groupingBy(Emp::getGender, Collectors.counting()));
 
         System.out.println(countMaleFemaleEmployeesInSalesMarketing);

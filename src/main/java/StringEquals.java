@@ -10,6 +10,7 @@ public class StringEquals {
         String s2 = "abc";
         System.out.println("s1 == s2 is:" + s1 == s2); //false
         System.out.println(s1 == s2);//true
+        System.out.println(s1.equals(s2));//true
     }
 }
 

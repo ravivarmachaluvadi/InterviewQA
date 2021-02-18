@@ -17,7 +17,7 @@ public class FindSecondHighest {
     }
 
     public static void main(String[] args) {
-        int arr[]= {1,3,2,4,5};
+        int[] arr = {1,3,2,4,5};
 
         System.out.println(findSecondHighest(arr));
     }
