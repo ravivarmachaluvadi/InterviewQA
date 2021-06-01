@@ -1,5 +1,7 @@
 package sabre;
 
+import theory.Greetings;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,9 @@ public class SabreMain {
         temp.setTemp(12);
         temp.setTemp(20);
 
-        Greetings greetingsInstance=n -> System.out.println("Hello World " + n);
+        Greetings greetingsInstance= n -> System.out.println("Hello World " + n);
+
+        greetingsInstance.sayHello("Ravi");
 
         greet(greetingsInstance, "Tom");
     }
