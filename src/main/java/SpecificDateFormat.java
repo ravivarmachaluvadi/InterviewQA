@@ -12,6 +12,6 @@ public class SpecificDateFormat {
 
         String date1 = simpleDateFormat.format(new java.sql.Date(System.currentTimeMillis()));
         System.out.println(date); // 06-23-2020
-        System.out.println(date1);
+        System.out.println(date1); // 06-23-2020
     }
 }

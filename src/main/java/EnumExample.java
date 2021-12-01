@@ -5,7 +5,11 @@ public class EnumExample {
 
         System.out.println(ThreadStates.RUNNING.name().equalsIgnoreCase("Running")); //true
 
+        System.out.println(ThreadStates.RUNNING.name().equals("Running")); //false
+
         System.out.println(ThreadStates.WAITING.name()=="Waiting"); //false
+
+        System.out.println(ThreadStates.WAITING.name()=="WAITING"); //true
 
     }
 }

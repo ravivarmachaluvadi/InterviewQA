@@ -12,7 +12,7 @@ public class PrintNumbersWithoutLoop {
             // Recursively call printNumbers
             printNumbers(n-1);
             // Print number while returning from recursion
-            System.out.print(" "+n);
+            System.out.print(" "+n); // 1 2 3 4 5 6 7 8 9 10
         }
     }
 

@@ -1,20 +1,13 @@
 public class EvenOddThreads {
-        int counter = 1;
-
-        static int N;
+        int counter = 1;static int N;
         public void printOddNumber()
         {
             synchronized (this)
             {
                 while (counter < N) {
                     if (counter % 2 == 0) {
-                        try {
-                            wait();
-                        }
-                        catch (
-                                InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        try {wait();}
+                        catch (InterruptedException e) {}
                     }
                     System.out.print(counter + " ");
                     counter++;
@@ -22,40 +15,28 @@ public class EvenOddThreads {
                 }
             }
         }
-
         public void printEvenNumber()
         {
             synchronized (this)
             {
                 while (counter < N) {
                     if (counter % 2 == 1) {
-                        try {
-                            wait();
-                        }
-                        catch (
-                                InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        try {wait();}
+                        catch (InterruptedException e) {}
                     }
-                    System.out.print(
-                            counter + " ");
+                    System.out.print(counter + " ");
                     counter++;
                     notify();
                 }
             }
         }
-
         public static void main(String[] args)
         {
             N = 10;
-
             EvenOddThreads mt = new EvenOddThreads();
-
             Thread t1 = new Thread(mt::printEvenNumber);
-
             Thread t2 = new Thread(mt::printOddNumber);
             t1.start();
             t2.start();
         }
     }
-

@@ -29,9 +29,15 @@ class MainClass
         A a = new B();
 
         a.m2();
+        /*
+        Class A method m2
+        Class B method m1 //dynamic overloading
+         */
+
+        A a1 = (A)new B();
+
+        a1.m1(); //Class B method m1
+        a.m1();  //Class B method m1
 
     }
 }
-
-    //Class A method m2
-    //Class B method m1

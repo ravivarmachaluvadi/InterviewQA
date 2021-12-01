@@ -1,3 +1,4 @@
+
 package inheritance;
 
 public class Calling {
@@ -8,7 +9,7 @@ public class Calling {
 
         final StringBuilder sb=new StringBuilder("Ravi");
         sb.append(" Varma");
-        System.out.println(sb);
+        System.out.println(sb); //Ravi Varma
 
     }
 
